@@ -4,13 +4,20 @@ Twitter = require 'twitter'
 
 pass = require './lib/password.js'
 
-clientName = process.env.TWITTER_SCREEN_NAME
+env = (name) ->
+    value = process.env[name]
+    if !value
+        console.error 'Missing required environment variable \'' + name + '\''
+        process.exit -1
+    value
+
+clientName = env 'TWITTER_SCREEN_NAME'
 
 client = new Twitter
-    consumer_key: process.env.TWITTER_CONSUMER_KEY
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET
-    access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY
-    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+    consumer_key: env 'TWITTER_CONSUMER_KEY'
+    consumer_secret: env 'TWITTER_CONSUMER_SECRET'
+    access_token_key: env 'TWITTER_ACCESS_TOKEN_KEY'
+    access_token_secret: env 'TWITTER_ACCESS_TOKEN_SECRET'
 
 generateResponse = (userName, userContent) ->
     score = pass.score userContent
