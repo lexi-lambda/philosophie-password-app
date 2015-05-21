@@ -1,0 +1,10 @@
+
+# OS X info files
+.DS_Store
+
+# let modules be installed by the package manager
+/node_modules
+
+# .js files will be generated at build-time
+*.js
+*.js.map

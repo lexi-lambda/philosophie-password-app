@@ -1,0 +1,16 @@
+{
+  "name": "philosophie-password-app",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "npm run coffee",
+    "coffee": "coffee -cm . lib/"
+  },
+  "author": "",
+  "dependencies": {
+    "coffee-script": "^1.9.2",
+    "lodash": "^3.9.1",
+    "twitter": "^1.2.5"
+  }
+}
