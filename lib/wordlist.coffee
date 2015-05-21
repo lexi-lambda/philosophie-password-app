@@ -1,7 +1,7 @@
 
 fs = require 'fs'
 
-words = fs.readFileSync '../resources/wordlist.txt', encoding: 'utf-8'
+words = fs.readFileSync 'resources/wordlist.txt', encoding: 'utf-8'
     # split by lines
     .split '\n'
     # only care about words with three or more characters
