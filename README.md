@@ -20,4 +20,6 @@ The bot pulls in information from environment variables in order to configure it
 
 With the environment properly configured, just run `npm start`, and the bot will start listening for tweets.
 
+You can also run the tests with the `npm test` command.
+
 <sub>This was done as an example project for [Philosophie](http://philosophie.is).</sub>
