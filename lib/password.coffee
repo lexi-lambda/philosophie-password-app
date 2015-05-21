@@ -37,6 +37,13 @@ replacementMap = {
         'G': '6'
         'L': '7'
     }
+    symbolic: {
+        'a': '@'
+        'e': '&'
+        'i': '!'
+        'o': '@'
+        'u': '^'
+    }
 }
 
 getSmartReplacement = (c, type, def) ->
@@ -93,7 +100,7 @@ strengthenPassword = (pass) ->
             when !counts.alphabetic then getSmartReplacement charToReplace, 'alphabetic', 'a'
             when !counts.numeric    then getSmartReplacement charToReplace, 'numeric', '0'
             when !counts.whitespace then ' '
-            else                         '!'
+            else                         getSmartReplacement charToReplace, 'symbolic', '!'
         return setChar pass, index, replacement
     # otherwise, we can try to bisect words to split them up
     alphabeticSequences = pass.match /[A-Za-z]+/g
