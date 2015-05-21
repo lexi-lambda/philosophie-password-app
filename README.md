@@ -19,3 +19,5 @@ The bot pulls in information from environment variables in order to configure it
 - `TWITTER_ACCESS_TOKEN_KEY` and `TWITTER_ACCESS_TOKEN_SECRET` — The access token key and secret for the Twitter API
 
 With the environment properly configured, just run `npm start`, and the bot will start listening for tweets.
+
+<sub>This was done as an example project for [Philosophie](http://philosophie.is).</sub>
