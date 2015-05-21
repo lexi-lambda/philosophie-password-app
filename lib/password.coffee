@@ -69,10 +69,12 @@ calculateScore = (pass) ->
     # multiply by the whole length
     baseScore * pass.length
 
+# helper function for functional modification of strings
 setChar = (str, index, char) ->
     if index > str.length - 1 then str
     else str.substr(0, index) + char + str.substr(index + 1)
 
+# grabs a random index in a string of a character matching the given regular expression
 randomIndexMatching = (string, regex) ->
     index = -1
     result = ''
@@ -81,6 +83,10 @@ randomIndexMatching = (string, regex) ->
         result = string[index]
     index
 
+# attempts to improve the strength of a password using three possible strategies
+# - if one of the three 'character classes' is missing, it performs substitution to add it
+# - if not, it bisects strings of alphabetic characters to attempt to remove long words
+# - otherwise, it just fails and stupidly tacks numbers onto the end
 strengthenPassword = (pass) ->
     counts = countKinds pass
     countsValues = _.values counts
