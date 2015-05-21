@@ -6,6 +6,42 @@ words = require './wordlist.js'
 # precompile the word list to regexes
 wordRegexes = _.map words, (w) -> new RegExp w, 'g'
 
+# character replacements for 'smart' replacement
+replacementMap = {
+    alphabetic: {
+        '0': 'O'
+        '1': 'l'
+        '2': 'Z'
+        '3': 'E'
+        '4': 'A'
+        '5': 'S'
+        '6': 'G'
+        '7': 'L'
+        '!': 'l'
+        '@': 'a'
+        '$': 'S'
+    }
+    numeric: {
+        'o': '0'
+        'O': '0'
+        'l': '1'
+        'I': '1'
+        'z': '2'
+        'Z': '2'
+        'e': '3'
+        'E': '3'
+        'a': '4'
+        'A': '4'
+        's': '5'
+        'S': '5'
+        'G': '6'
+        'L': '7'
+    }
+}
+
+getSmartReplacement = (c, type, def) ->
+    replacementMap[type][c] or def
+
 # perform naïve string replacement to remove all the words
 collapseWords = (pass) ->
     for word in wordRegexes
@@ -51,10 +87,11 @@ strengthenPassword = (pass) ->
             when counts.whitespace >= 2 then /[ \t\n\r]/
             else                             /[^A-Za-z0-9 \t\n\r]/
         index = randomIndexMatching pass, kindToReplace
+        charToReplace = pass[index]
         # get a character to use in the replacing
         replacement = switch
-            when !counts.alphabetic then 'a'
-            when !counts.numeric    then '0'
+            when !counts.alphabetic then getSmartReplacement charToReplace, 'alphabetic', 'a'
+            when !counts.numeric    then getSmartReplacement charToReplace, 'numeric', '0'
             when !counts.whitespace then ' '
             else                         '!'
         return setChar pass, index, replacement
@@ -63,7 +100,9 @@ strengthenPassword = (pass) ->
     if alphabeticSequences and _.some(alphabeticSequences, (s) -> s.length >= 2)
         longestSequence = _.last _.sortBy alphabeticSequences, (s) -> s.length
         replacementIndex = Math.floor(longestSequence.length / 2)
-        replacementSequence = setChar longestSequence, replacementIndex, '!'
+        charToReplace = longestSequence[replacementIndex]
+        replacementChar = getSmartReplacement charToReplace, 'numeric', '!'
+        replacementSequence = setChar longestSequence, replacementIndex, replacementChar
         return pass.replace longestSequence, replacementSequence
     # if all else fails, just tack stuff onto the end
     return pass + _.sample ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!']
