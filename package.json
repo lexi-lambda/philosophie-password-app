@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "node .",
     "build": "npm run coffee",
     "coffee": "coffee -cm . lib/"
   },
