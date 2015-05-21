@@ -6,6 +6,8 @@ words = require './wordlist.js'
 # precompile the word list to regexes
 wordRegexes = _.map words, (w) -> new RegExp w, 'g'
 
+simpleAdditions = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!']
+
 # character replacements for 'smart' replacement
 replacementMap = {
     alphabetic: {
@@ -118,7 +120,7 @@ strengthenPassword = (pass) ->
         replacementSequence = setChar longestSequence, replacementIndex, replacementChar
         return pass.replace longestSequence, replacementSequence
     # if all else fails, just tack stuff onto the end
-    return pass + _.sample ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!']
+    return pass + simpleAdditions[Math.floor(Math.random() * simpleAdditions.length)]
 
 exports.score = _.flow collapseWords, calculateScore
 exports.strengthen = strengthenPassword

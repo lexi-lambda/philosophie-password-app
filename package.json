@@ -6,12 +6,16 @@
   "scripts": {
     "start": "node .",
     "build": "npm run coffee",
-    "coffee": "coffee -cm . lib/"
+    "coffee": "coffee -cm . lib/",
+    "test": "mocha"
   },
   "author": "",
   "dependencies": {
     "coffee-script": "^1.9.2",
+    "expect.js": "^0.3.1",
     "lodash": "^3.9.1",
+    "mocha": "^2.2.5",
+    "seed-random": "^2.2.0",
     "twitter": "^1.2.5"
   }
 }
